@@ -3,6 +3,7 @@ package es.esy.kapcapx;
 public class ArrayVector {
     private float[] vector;
     private int arraySize;
+    private float vectorSize;
 
     public ArrayVector (float[] vector, int arraySize) {
         this.vector = vector;
@@ -54,14 +55,45 @@ public class ArrayVector {
         }
     }
 
-    public void getNorm () {
-
+    public float getNorm () {
+        float norm = 0.0f;
+        for (int i = 0; i < arraySize; i++) {
+            norm += vector[i] * vector[i];
+        }
+        return (float) Math.sqrt(norm);
     }
 
-    public float[] mult () {
+    public float[] mult (int mulNumber) {
         float[] resultVector = new float[arraySize];
-
+        for (int i = 0; i < arraySize; i++) {
+            resultVector[i] = vector[i] * mulNumber;
+        }
         return resultVector;
     }
 
+    public float[] sum (float[] secondVector) {
+        if (secondVector.length == vector.length) {
+            float[] resultVector = new float[arraySize];
+            for (int i = 0; i < arraySize; i++) {
+                resultVector[i] = vector[i] + secondVector[i];
+            }
+            return resultVector;
+        } else {
+            System.out.println("Ошибка векторы должны быть одинакового размера!");
+            return secondVector;
+        }
+    }
+
+    public float scalarMult (float[] secondVector) {
+        if (secondVector.length == vector.length) {
+            float result = 0.0f;
+            for (int i = 0; i < arraySize; i++) {
+                result += (vector[i] * secondVector[i]);
+            }
+            return result;
+        } else {
+            System.out.println("Ошибка векторы должны быть одинакового размера!");
+            return 0.0f;
+        }
+    }
 }
